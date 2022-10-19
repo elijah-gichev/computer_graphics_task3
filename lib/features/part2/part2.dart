@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:laba3/features/part2/wu_alg.dart';
 
 enum PaintState {
   ready,
@@ -29,48 +30,43 @@ class _Part2PageState extends State<Part2Page> {
     super.initState();
   }
 
-  String appBarText(PaintState paintState) {
-    switch (paintState) {
-      case PaintState.firstTapCompleted:
-        return 'Choose the second position';
-      default:
-        return 'Choose the first position';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          appBarText(paintState),
+        title: const Text(
+          'Part 2',
         ),
       ),
-      body: Center(
-        child: GestureDetector(
-          onTapDown: onTapDown,
-          child: RepaintBoundary(
-            child: Container(
-              padding: const EdgeInsets.all(10.0),
-              height: 600,
-              width: 600,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black45,
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+            onTapDown: onTapDown,
+            child: RepaintBoundary(
+              child: Container(
+                padding: const EdgeInsets.all(10.0),
+                height: 600,
+                width: 600,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black45,
+                  ),
                 ),
-              ),
-              child: CustomPaint(
-                foregroundPainter: MyCustomPainter(
-                  x1: x1,
-                  y1: y1,
-                  x2: x2,
-                  y2: y2,
-                  paintState: paintState,
+                child: CustomPaint(
+                  foregroundPainter: MyCustomPainter(
+                    x1: x1,
+                    y1: y1,
+                    x2: x2,
+                    y2: y2,
+                    paintState: paintState,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+          WuAlg(),
+        ],
       ),
     );
   }
